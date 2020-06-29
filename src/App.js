@@ -6,8 +6,10 @@ import NavBar from './components/Navbar'
 import AllQuestions from './components/AllQuestions'
 import LeaderBoard from './components/LeaderBoard'
 import QuestionPage from './components/QuestionPage'
+import NewQuestionForm from './components/NewQuestionForm'
 import Login from './components/Login'
 import ProtectedRoute from './components/ProtectedRoute'
+import NotFound from './components/NotFound'
 import './App.css';
 import './styles.scss';
 
@@ -25,9 +27,9 @@ function App() {
           <ProtectedRoute path="/leaderboard" component={LeaderBoard} /> 
           <Route path="/login" component={Login} />
           <ProtectedRoute path="/questions/:id" component={QuestionPage} />
-          {/* <ProtectedRoute path="/newquestion" component={NewQuestion} />
-          <ProtectedRoute path="/profile" component={Profile} />
-          <Route component={NotFound} /> */}
+          <ProtectedRoute path="/add" component={NewQuestionForm} />
+          {/* <ProtectedRoute path="/profile" component={Profile} /> */}
+          <Route component={NotFound} />
         </Switch>
         {/* <Message /> */}
       </Fragment>

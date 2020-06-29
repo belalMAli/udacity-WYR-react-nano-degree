@@ -1,9 +1,14 @@
-import { ALL_QUESTIONS, SAVE_QUESTION_TO_QUESTIONS_STATE } from "../Actions/questions"
+import { ALL_QUESTIONS, SAVE_QUESTION_TO_QUESTIONS_STATE, ADD_QUESTION } from "../Actions/questions"
 
 const questions = (state = {}, action) => {
   switch (action.type) {
     case ALL_QUESTIONS:
       return action.questions
+    case ADD_QUESTION:
+      return {
+        ...state,
+        [action.question.id]: action.question
+      }
     case SAVE_QUESTION_TO_QUESTIONS_STATE: {
       const { authedUser, qid, answer } = action.questionData
       const question = state[qid]

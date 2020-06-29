@@ -13,7 +13,7 @@ class Navbar extends Component {
                 <NavLink to='/'>
                     Home
                 </NavLink>
-                <NavLink to='/newquestion'>
+                <NavLink to='/add'>
                     Newquestion
                 </NavLink>
                 <NavLink to='/leaderboard'>
