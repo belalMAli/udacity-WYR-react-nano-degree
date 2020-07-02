@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getQuestions } from '../redux/Actions/questions'
+// import { getQuestions } from '../redux/Actions/questions'
 import QuestionCard from './QuestionCard'
 import { Button } from 'react-bootstrap';
 
@@ -20,9 +20,9 @@ class AllQuestions extends Component {
         })
     }
 
-    componentDidMount() {
-        this.props.getQuestions()
-    }
+    // componentDidMount() {
+    //     this.props.getQuestions()
+    // }
 
     onLogin = (e) => {
         this.props.login(e.target.value)
@@ -36,12 +36,14 @@ class AllQuestions extends Component {
         if (questions) {
             answeredQuestionsIDs = Object.keys(users[authedUser].answers)
             answeredQuestions = answeredQuestionsIDs.map(id => questions[id])
+                                .sort((a, b) => b.timestamp - a.timestamp)
             for (let i = 0; i < Object.keys(questions).length; i++) {
                 if (!answeredQuestionsIDs.includes(Object.keys(questions)[i])) {
                     unAnsweredQuestionsIDs.push(Object.keys(questions)[i])
                 }
             }
             unAnsweredQuestions = unAnsweredQuestionsIDs.map(id => questions[id])
+                                  .sort((a, b) => b.timestamp - a.timestamp)
         }
         return (
             <div className="container text-center">
@@ -86,7 +88,4 @@ const mapStateToProps = ({ questions, users, authedUser }) => ({
     authedUser
 })
 
-export default connect(mapStateToProps, {
-    getQuestions,
-}
-)(AllQuestions)
+export default connect(mapStateToProps, null)(AllQuestions)

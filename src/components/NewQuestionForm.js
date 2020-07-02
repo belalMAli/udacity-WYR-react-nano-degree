@@ -60,23 +60,6 @@ class NewQuestionForm extends Component {
             Submit
           </Button>
         </Form>
-        {/* <form>
-          <input
-            name='optionOne'
-            onChange={this.handleChange}
-            value={this.state.optionOne}
-            placeholder="first option"
-          ></input>
-          <p>or</p>
-          <input name='optionTwo'
-            onChange={this.handleChange}
-            value={this.state.optionTwo} placeholder="second option"></input>
-          <button
-            disabled={!this.state.optionOne && !this.state.optionTwo}
-            type="submit">
-            submit
-          </button>
-        </form> */}
       </div>
     )
   }
