@@ -22,7 +22,7 @@ function App() {
           <ProtectedRoute path="/leaderboard" component={LeaderBoard} /> 
           <ProtectedRoute path="/add" component={NewQuestionForm} />
           <ProtectedRoute path="/questions/:id" component={QuestionPage} />
-          <Route component={NotFound} />
+          <ProtectedRoute component={NotFound} />
         </Switch>
       </Fragment>
     </Router>

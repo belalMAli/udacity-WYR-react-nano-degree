@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { saveQuestionAnswer } from '../redux/Actions/questions'
 import { saveQuestionAnswerToUser } from '../redux/Actions/users'
+import { Redirect } from 'react-router-dom';
 import QuestionResults from './QuestionResults'
 import { Button, Card } from 'react-bootstrap';
 
@@ -28,6 +29,13 @@ class QuestionPage extends Component {
   render() {
     const { questions, users, authedUser } = this.props
     const { id } = this.props.match.params
+    if (!Object.keys(questions).includes(id)) {
+      return <Redirect to={
+        {
+          pathname: '/not-found'
+        }
+      } />
+    }
     const question = questions[id]
     const author = users[question.author].name
     const authorAvatar = users[question.author].avatarURL
