@@ -19,7 +19,7 @@ class Login extends Component {
     render() {
         const { users, history } = this.props
         return (
-            <div>
+            <div className="container text-center">
                 <h1>Welcome to would you rather</h1>
                 <h4>sgnin to continue</h4>
                 <form>

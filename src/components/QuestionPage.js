@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { saveQuestionAnswer } from '../redux/Actions/questions'
 import { saveQuestionAnswerToUser } from '../redux/Actions/users'
 import QuestionResults from './QuestionResults'
+import { Button, Card } from 'react-bootstrap';
 
 class QuestionPage extends Component {
   state = {
@@ -15,11 +16,13 @@ class QuestionPage extends Component {
     })
   }
   submit = (event) => {
-    event.preventDefault()
-    // To post data to API and change the questions state inside the store
-    this.props.saveQuestionAnswer(this.props.authedUser, this.props.match.params.id, this.state.selected)
-    // To change the users state inside the store
-    this.props.saveQuestionAnswerToUser(this.props.authedUser, this.props.match.params.id, this.state.selected)
+    if (this.state.selected) {
+      event.preventDefault()
+      // To post data to API and change the questions state inside the store
+      this.props.saveQuestionAnswer(this.props.authedUser, this.props.match.params.id, this.state.selected)
+      // To change the users state inside the store
+      this.props.saveQuestionAnswerToUser(this.props.authedUser, this.props.match.params.id, this.state.selected)
+    }
   }
 
   render() {
@@ -27,32 +30,41 @@ class QuestionPage extends Component {
     const { id } = this.props.match.params
     const question = questions[id]
     const author = users[question.author].name
+    const authorAvatar = users[question.author].avatarURL
     const answeredQuestionsIDs = Object.keys(users[authedUser].answers)
     if (answeredQuestionsIDs.includes(id)) {
       return (
-        <QuestionResults id={id}></QuestionResults>
+        <div className="container">
+          <QuestionResults avatar={authorAvatar} id={id}></QuestionResults>
+        </div>
       )
     }
     return (
-      <div>
-        <div className="person">
-          <p>{author} asks:</p>
-        </div>
-        <div>
-          <div className="imgSection">
-            <img></img>
+      <div className="container">
+        <Card className="questionCard">
+          <Card.Title className="text-left">{author} asks:</Card.Title>
+          <div className="container-fluid">
+            <div className="row">
+              <Card.Img className="col-md-3" src={authorAvatar} />
+              <Card.Body className="col-md-9">
+                <h3>would you rather...</h3>
+                  <form onSubmit={this.submit}>
+                    <div>
+                      <input type="radio" id="optionOne" name="would you rather" onChange={this.clickOption} value="optionOne"></input>
+                      <label htmlFor="optionOne">{question.optionOne.text}</label>
+                    </div>
+                    <div>
+                      <input type="radio" id="optionTwo" name="would you rather" onChange={this.clickOption} value="optionTwo"></input>
+                      <label htmlFor="optionTwo">{question.optionTwo.text}</label>
+                    </div>
+                    <Button disabled={!this.state.selected} type="submit" className="w-100" variant="outline-success">
+                      submit
+                  </Button>
+                  </form>
+              </Card.Body>
+            </div>
           </div>
-          <div className="questionSection">
-            <h3>would you rather...</h3>
-            <form onSubmit={this.submit}>
-              <input type="radio" id="optionOne" name="would you rather" onChange={this.clickOption} value="optionOne"></input>
-              <label htmlFor="optionOne">{question.optionOne.text}</label>
-              <input type="radio" id="optionTwo" name="would you rather" onChange={this.clickOption} value="optionTwo"></input>
-              <label htmlFor="optionTwo">{question.optionTwo.text}</label>
-              <button>submit</button>
-            </form>
-          </div>
-        </div>
+        </Card>
       </div>
     )
   }

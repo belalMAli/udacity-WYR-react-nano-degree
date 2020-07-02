@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { addQuestion } from '../redux/Actions/questions'
+import { Form, Button } from 'react-bootstrap';
 
 class NewQuestionForm extends Component {
   state = {
@@ -30,24 +31,52 @@ class NewQuestionForm extends Component {
   render() {
     return (
 
-      <div>
-        <h2>create new fquestion</h2>
+      <div className="container">
+        <h2 className="text-center">create new question</h2>
         <hr />
-        <h4>would you rather...</h4>
-        <form onSubmit={this.handleSubmit}>
-          <input name='optionOne'
-                      onChange={this.handleChange}
-                      value={this.state.optionOne} placeholder="first option"></input>
+        <h4 className="mb-4">would you rather...</h4>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Control
+              name='optionOne'
+              onChange={this.handleChange}
+              value={this.state.optionOne}
+              placeholder="first option"
+              />
+          </Form.Group>
+          <h3 className="text-center mb-4">or</h3>
+          <Form.Group>
+            <Form.Control
+              name='optionTwo'
+              onChange={this.handleChange}
+              value={this.state.optionTwo}
+              placeholder="second option"
+              />
+          </Form.Group>
+          <Button 
+            disabled={!this.state.optionOne && !this.state.optionTwo}
+            variant="primary" 
+            type="submit">
+            Submit
+          </Button>
+        </Form>
+        {/* <form>
+          <input
+            name='optionOne'
+            onChange={this.handleChange}
+            value={this.state.optionOne}
+            placeholder="first option"
+          ></input>
           <p>or</p>
           <input name='optionTwo'
-                      onChange={this.handleChange}
-                      value={this.state.optionTwo} placeholder="second option"></input>
-          <button 
-            disabled={!this.state.optionOne && !this.state.optionTwo} 
+            onChange={this.handleChange}
+            value={this.state.optionTwo} placeholder="second option"></input>
+          <button
+            disabled={!this.state.optionOne && !this.state.optionTwo}
             type="submit">
-              submit
+            submit
           </button>
-        </form>
+        </form> */}
       </div>
     )
   }

@@ -1,13 +1,11 @@
-import React, { Component, Fragment } from "react"
+import React, { Fragment } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import { connect } from "react-redux"
-import logo from './logo.svg';
-import NavBar from './components/Navbar'
+import Login from './components/Login'
+import AppNav from './components/AppNav'
 import AllQuestions from './components/AllQuestions'
+import NewQuestionForm from './components/NewQuestionForm'
 import LeaderBoard from './components/LeaderBoard'
 import QuestionPage from './components/QuestionPage'
-import NewQuestionForm from './components/NewQuestionForm'
-import Login from './components/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import NotFound from './components/NotFound'
 import './App.css';
@@ -17,25 +15,18 @@ function App() {
   return (
     <Router>
       <Fragment>
-        <NavBar />
+        <AppNav />
         <Switch>
-          <ProtectedRoute
-            path="/"
-            exact
-            component={AllQuestions}
-          />
+          <ProtectedRoute path="/" exact component={AllQuestions} />
+          <ProtectedRoute path="/login" component={Login} />
           <ProtectedRoute path="/leaderboard" component={LeaderBoard} /> 
-          <Route path="/login" component={Login} />
-          <ProtectedRoute path="/questions/:id" component={QuestionPage} />
           <ProtectedRoute path="/add" component={NewQuestionForm} />
-          {/* <ProtectedRoute path="/profile" component={Profile} /> */}
+          <ProtectedRoute path="/questions/:id" component={QuestionPage} />
           <Route component={NotFound} />
         </Switch>
-        {/* <Message /> */}
       </Fragment>
     </Router>
   );
 }
 
-// export default connect(null, { getAllUsers: fetchUsers })(App)
 export default App

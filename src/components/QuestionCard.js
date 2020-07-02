@@ -1,30 +1,29 @@
 import React from "react"
 import { NavLink } from 'react-router-dom'
+import { Button, Card } from 'react-bootstrap';
 
 const QuestionCard = (props) => (
-    <div>
-        <div className="person">
-            <p>{props.author} asks:</p>
-        </div>
-        <div>
-            <div className="imgSection">
-                <img></img>
-            </div>
-            <div className="questionSection">
-                <h3>would you rather...</h3>
-                <h4>
-                    ...
+    <Card className="questionCard">
+        <div className="container-fluid">
+            <div className="row">
+                <Card.Img className="col-md-3" src={props.avatar} />
+                <Card.Body className="col-md-9">
+                    <Card.Title>{props.author} asks:</Card.Title>
+                    <h3>would you rather...</h3>
+                    <Card.Text>
+                        ...
                     {props.hint.substring(0, 15)}
                     ...
-                </h4>
-                <button>
-                    <NavLink to={`/questions/${props.id}`}>
-                        view poll
+      </Card.Text>
+                    <Button className="w-100 p-0" variant="outline-secondary">
+                        <NavLink className="w-100 d-inline-block p-1" to={`/questions/${props.id}`}>
+                            view poll
                     </NavLink>
-                </button>
+                    </Button>
+                </Card.Body>
             </div>
         </div>
-    </div>
+    </Card>
 )
 
 

@@ -17,7 +17,6 @@ const users = (state = null, action) => {
     }
     case SAVE_QUESTION_TO_USERS_STATE: {
       const { authedUser, qid, answer } = action.questionData
-      const question = state[qid]
       return {
         ...state,
         [authedUser]: {

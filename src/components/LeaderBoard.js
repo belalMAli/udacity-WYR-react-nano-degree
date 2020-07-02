@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import UserCard from './UserCard'
 
 class LeaderBoard extends Component {
     render() {
-        let { questions, users, authedUser } = this.props
+        let { users } = this.props
         const usersListing = Object.keys(users)
         .map(userID => {
             const user = users[userID]
@@ -12,17 +12,16 @@ class LeaderBoard extends Component {
             const created  = user.questions.length
             const score = answered + created
             users[userID].score = score
-            // console.log(users)
             return userID
         })
         .sort((a,b) => users[b].score - users[a].score)
-        .map(userID => {
+        .map((userID, i) => {
                 const user = users[userID]
                 const answered = Object.keys(user.answers).length 
                 const created  = user.questions.length
-                // const score = answered + created
                 return (<UserCard
                     key={userID}
+                    place={i}
                     name={user.name}
                     avatarURL={user.avatarURL}
                     answered={answered}
@@ -35,7 +34,6 @@ class LeaderBoard extends Component {
 
         return (
             <div>
-                {console.log(usersListing)}
                 {usersListing}
             </div>
         )

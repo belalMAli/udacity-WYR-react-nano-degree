@@ -11,7 +11,6 @@ const questions = (state = {}, action) => {
       }
     case SAVE_QUESTION_TO_QUESTIONS_STATE: {
       const { authedUser, qid, answer } = action.questionData
-      const question = state[qid]
       return {
         ...state,
         [qid]: {
